@@ -1,3 +1,3 @@
 # DapperMvcProject
 Dapper
-## 使用dapper的orm的MVC项目,控制器也是异步的
+## 使用dapper异步方法查询,控制器同样也是异步的
