@@ -1,0 +1,256 @@
+﻿@{
+	Layout = "~/Views/Share/_LayoutCommon.cshtml";
+	ViewBag.active4 = "active";
+}
+<style>
+    @@media(max-width: 992px) {
+        #canvas {
+            width: 100% !important;
+        }
+    }
+    @@media(max-width: 768px) {
+        .row-offcanvas {
+            position: relative;
+            -webkit-transition: all .25s ease-out;
+            -o-transition: all .25s ease-out;
+            transition: all .25s ease-out;
+        }
+        .row-offcanvas-right {
+            right: 0;
+        }
+        .row-offcanvas-right .sidebar-offcanvas {
+            right: -50%; /* 6 columns */
+        }
+        .row-offcanvas-right.active {
+            right: 50%; /* 6 columns */
+        }
+        .sidebar-offcanvas {
+            position: absolute;
+            top: 0;
+            width: 50%; /* 6 columns */
+        }
+        #canvas {
+            margin-top: 10px !important;
+        }
+        #guanggao {
+            display: none;
+        }
+    }
+    p {
+        text-indent: 2em;
+        margin-bottom: 0px;
+        font-size: 15px;
+    }
+    html, body {
+        overflow-x: hidden;
+    }
+    button {
+        outline: none !important;
+    }
+    #btn {
+        background: #2e88bc;
+        border-color: #2e88bc;
+    }
+    #canvas {
+        margin-top: 20px;
+    }
+    #guanggao {
+        width: 260px;
+    }
+    .list-group-item.active,
+    .list-group-item.active:focus,
+    .list-group-item.active:hover {
+        background: #2e88bc;
+        border-color: #2e88bc;
+    }
+	.media{
+		overflow:hidden;
+		zoom:1;
+		border-bottom:1px solid #ccc;
+	}
+	.media .media-body,.media-left{
+		display:table-cell;
+		vertical-align:top;
+	}
+	.media-body{
+		padding-top:10px;
+	}
+	.media-left{
+		padding-right:10px;
+	}
+	.media-heading{
+		margin-top:0;
+		margin-bottom:5px;
+	}
+	#content div.media:last-child {
+		border-bottom:0px;
+	}
+</style>
+<script type="text/javascript">
+        $(document).ready(function () {
+            //列表回弹
+            $('[data-toggle="canvas"]').click(function () {
+                $('.row-offcanvas').toggleClass('active');
+            });
+
+            //列表切换
+            var li = $(".list-group a");
+            li.click(function (e) {
+                $(this).addClass("active").siblings().removeClass("active");
+                var index = li.index(this);
+                $("#content > div").eq(index).show().siblings().hide();
+                $("#title").html(this.text);//设置标题
+                $('.row-offcanvas').toggleClass('active');
+            });
+            //获取连接参数
+            var urlParam = window.location.search;
+            var p = urlParam.lastIndexOf('=');//查找等号
+            if (p == -1) {
+                loc = urlParam.substring(1, urlParam.length);//获取类型
+            } else {
+                loc = urlParam.substring(1, urlParam.lastIndexOf('='));//获取类型
+            }
+            if (urlParam.lastIndexOf('?') == -1) {
+                loc = "GSJJ";
+            }
+            var c = "#" + loc;//制造ID
+            $(c).click();//执行单击事件
+        });
+</script>
+<img src="~/Content/images/gywm.jpg" class="img-responsive center-block" style="width:100%;">
+<div class="container" id="canvas" style="margin:40px auto;">
+	<div class="row row-offcanvas row-offcanvas-right">
+		<div class="col-md-3 col-sm-3 sidebar-offcanvas">
+			<div class="list-group" style="text-align: center;">
+				<a href="#" class="list-group-item" id="GSJJ">公司简介</a>
+				<a href="#" class="list-group-item" id="QYLN">企业理念</a>
+				<a href="#" class="list-group-item" id="QYZZRY">企业资质荣誉</a>
+				<a href="#" class="list-group-item" id="LDQM">领导期勉</a>
+				<a href="#" class="list-group-item" id="GLTD">管理团队</a>
+			</div>
+			<img src="~/Content/images/right_01.jpg" class="img-responsive center-block" id="guanggao">
+		</div>
+		<div class="col-md-9 col-sm-9 col-xs-12 dd">
+			<p class="pull-right visible-xs">
+				<button type="button" id="btn" class="btn btn-primary btn-xs" data-toggle="canvas">导航</button>
+			</p>
+			<!--内容展示-->
+			<h3 style="margin-top: 0px;"><strong id="title"></strong></h3>
+			<hr>
+			<div id="content">
+				<div style="line-height:30px;">
+					<p>上海森昊保险代理有限公司创建于2015年9月9日，总部位于上海陆家嘴，注册资本5000万人民币。公司系近三年来上海第一张全国性保险中介机构牌照，专业从事保险产品代理销售业务，解决了中小保险公司服务能力不足的问题。同时，公司还拥有互联网保险销售资质。公司已经设立上海、江苏、河南分公司。正在筹建北京、安徽、湖北、浙江、福建等其他省份分公司。</p>
+					<p>作为一家新兴保险代理公司，公司以打造创新互联网保险平台为企业使命，基于O2O业务模式，通过自主研发的熊猫保险APP打通线上电商渠道和线下综合服务网络，着力打造互联网保险服务第一品牌。</p>
+					<p style="font-size:16px; margin-top:15px; font-weight:bold">公司业务模式</p>
+					<p>模式一：B2B2C模式</p>
+					<p>公司自成立以来就致力于建立创新O2O模式，以打造新型互联网+保险平台为企业使命。结合移动互联网趋势，通过自主研发的APP，打通线上电商团队和线下综合服务网络，解决中小保险公司服务能力不足的问题。公司还将借助掌上APP让广大消费者在指尖滑动中轻松实现购买与理赔，为用户提供最好的保险体验。此外，公司还将着力打造B2B2C业务平台，结合股东线上金融媒体合作平台，实现大批量客户的线上引流、转化销售，迅速扩展线上业务。</p>
+					<p>模式二：B2C2C模式</p>
+					<p>公司将充分利用关联企业现有的数十家线下财富管理中心客户资源迅速开展业务。公司还将针对高端客户群体，组建一支精英服务团队，通过专业化、定制化服务实现公司品牌声誉建设。</p>
+					<p>针对车险业务，公司旗下的汽车服务公司，将从传统车险市场入手，将汽车服务作为车险的增值服务，深耕中高端客户群体，进而实现与非车险产品的交叉营销，提升公司多元化经营实力。</p>
+					<p>公司将通过B2C2C营销模式迅速扩张代理人销售队伍，通过研发专属保险产品提高产品销售竞争力。</p>
+					<p style="font-size:16px; margin-top:15px; font-weight:bold">公司定位</p>
+					<p>线上平台+线下服务+核心业务管理系统=熊猫保险服务</p>
+					<p>基于宏观政策环境、行业发展现状趋势以及市场用户群体的具体产品需求，公司三大发展支柱确定为：专业线下团队、核心业务系统、综合保险生态圈建设</p>
+					<p style="font-size:16px; margin-top:15px; font-weight:bold">保险服务产品库</p>
+					<p>1、意外险：旅行意外、个人综合意外险、公共交通 意外险、健身意外险等</p>
+					<p>2、健康保险：重大疾病保险：综合重疾产品/单病种保险；住院医疗、门急诊保险</p>
+					<p>3、自保产品：自保产品（好玩、有趣的引流产品，以服务方式出现）</p>
+					<p>4、财产保险：汽车保险、财产保险、责任保险等</p>
+					<p>5、理财型保险：分红型产品、投资连结保险、万能保险 （待监政策而定）</p>
+					<p>6、保障类普通保险：定期寿险（涵盖意外、疾病身故保障）/终身寿险/返还类保险（分红）</p>
+					<p style="font-size:16px; margin-top:15px; font-weight:bold">公司愿景</p>
+					<p>森昊保代未来三年的经营发展规划，将立足互联网、大数据、云计算等新技术，不断创新经营模式，打造新渠道，结合公司股东线下门店资源和线上媒体平台，逐步提升市场覆盖率，为广大客户提供增值服务。同时，公司还将着力建设内控体制，有效实现风险控制，打造国内保险服务第一品牌。</p>
+				</div>
+				<div>
+					<p>业务创新，品质优异，服务满意，价值卓越</p>
+				</div>
+				<div>
+					<div class="col-md-12 col-sm-12 col-xs-12">
+						<img src="~/Content/images/glory1.jpg" class="img-responsive center-block">
+					</div>
+					<div class="col-md-12 col-sm-12 col-xs-12">
+						<img src="~/Content/images/glory1.jpg" class="img-responsive center-block">
+					</div>
+				</div>
+				<div>
+					<h5><strong>董事长寄语</strong></h5>
+					<p>上海森昊保险代理有限公司是一家全国性的保险专业代理公司。公司以“打造新型互联网+保险平台”为企业使命。为了在激烈的市场竞争中，迅速创立全新的集团形象、最佳的经济效益、卓著的社会信誉，除公司要有前瞻的经营战略和正确的经营方针外，必须要拥有一个集中了优秀的管理人才和服务人才的团队，必须要每一位员工在各自的工作岗位上，兢兢业业，精诚合作，相互激励，力争达到我们的标准：“较强的发展能力、盈利能力和市场竞争能力”。因此，优秀的员工是我们公司最珍贵的财富。我希望公司的每一位员工都能以高度的责任感，竭力支持公司的成功。公司在此过程中也将为员工提供良好的工作环境、融洽的合作氛围、进取的发展机会。</p>
+					<p>森昊是一个年轻的、富有理想和激情的公司，这里倡导积极向上的精神、培育和谐乐观的心态；这里充满开拓创新、追求卓越的进取氛围；这里拥有团结互助、蓬勃向上的朝气；这里聚集了一批有远大理想、有职业素养、有专业知识、懂管理、善经营的人才。</p>
+					<p>欢迎你加入我们的团队——成为一位“森昊人”。在这里，公司将赋予您广阔的事业发展天地，为您提供公平竞争的环境及可持续发展的机会和空间：您可以充分发挥聪明才智，也可以通过勤奋工作和接受公司的培养，从而成长为一名优秀的专业人才或高级管理人才。这样，我们就可以借助团队的力量达到您和我们大家的目标——与公司的其他同仁一道共同努力，努力创造公司和个人更美好的明天。</p>
+					<p>最后，期待你们在森昊这个大家庭里努力工作、尽展才华，为公司做出贡献，为自己创造美好的生活。</p>
+					<p class="text-right">上海森昊保险代理有限公司</p>
+					<p class="text-right">董事长：张晓凯</p>
+					<br>
+				</div>
+				<div>
+					<img src="~/Content/images/gltd_banner.jpg" />
+					<div class="media">
+						<div class="media-left">
+							<a href="#">
+								<img src="~/Content/images/team/zxk.jpg" width="170" style="margin:10px; margin-right:10px;">
+							</a>
+						</div>
+						<div class="media-body">
+							<h3 class="media-heading">张晓凯 <small>董事长</small></h3><br>
+							<p style="font-size:14px; line-height:24px">
+								哈尔滨工业大学工商管理专业，曾就职于人民银行下属机构，任办公室主管、财务主管，负责上海、浙江、福建等地金融机构的协调工作，有丰富的金融管理经验和扎实的财务专业知识。
+							</p>
+						</div>
+					</div>
+					<div class="media">
+						<div class="media-left">
+							<a href="#">
+								<img src="~/Content/images/team/ljf.jpg" width="170" style="margin:10px; margin-right:10px;">
+							</a>
+						</div>
+						<div class="media-body">
+							<h3 class="media-heading">李俊峰 <small>执行总裁</small></h3><br>
+							<p style="font-size:14px; line-height:24px">
+								毕业于华北水利水电，全国首期组训，曾任支公司经理，地市公司总经理，省公司银代部总经理，团险部总经理，个人寿险部总经理，投资公司总经理。
+							</p>
+						</div>
+					</div>
+					<div class="media">
+						<div class="media-left">
+							<a href="#">
+								<img src="~/Content/images/team/tr.jpg" width="170" style="margin:10px; margin-right:10px;">
+							</a>
+						</div>
+						<div class="media-body">
+							<h3 class="media-heading">田蓉 <small>行政总裁</small></h3><br>
+							<p style="font-size:14px; line-height:24px">
+								先后任职于长峰地产、华人置业、世茂股份等知名企业，并常年担任高管职务，拥有先进的企业管理经验。在地产开发、地产金融、商业地产运营等方面积累丰富的实战经验，成功主导了企业的上市运作及企业内部股权激励的实施，并参与多个国家级标杆项目的开发运营。
+							</p>
+						</div>
+					</div>
+					<div class="media">
+						<div class="media-left">
+							<a href="#">
+								<img src="~/Content/images/team/fyl.jpg" width="170" style="margin:10px; margin-right:10px;">
+							</a>
+						</div>
+						<div class="media-body">
+							<h3 class="media-heading">樊友亮 <small>行政副总裁</small></h3><br>
+							<p style="font-size:14px; line-height:24px">
+								中国注册会计师，历任毕马威企业咨询（中国）有限公司税务助理经理、申能集团财务有限公司总经办秘书。
+							</p>
+						</div>
+					</div>
+					<div class="media">
+						<div class="media-left">
+							<a href="#">
+								<img src="~/Content/images/team/jyd.jpg" width="170" style="margin:10px; margin-right:10px;">
+							</a>
+						</div>
+						<div class="media-body">
+							<h3 class="media-heading">金易栋 <small>财产险总监</small></h3><br>
+							<p style="font-size:14px; line-height:24px">
+								10年保险从业经历，曾在盛世大联保险代理股份有限公司从事车险团队管理，历任电销主管、业务销售总监。
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

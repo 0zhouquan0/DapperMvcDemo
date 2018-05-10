@@ -1,0 +1,20 @@
+﻿@using Webdiyer.WebControls.Mvc
+@using InsuranceModels
+@model PagedList<News>
+<div data-bind="foreach: news" style="line-height:40px;">
+    @foreach (var item in Model)
+    {
+        <div class="row">
+            <div class="col-md-8 col-sm-6">
+                <p><span class="glyphicon glyphicon-comment"></span><a href="/HelpList/HelpNewsDetail/@item.ID" class="newlist" data-bind="attr:{ }, text: Title">@(item.Title.Length > 30 ? item.Title.Substring(0, 30) + "..." : item.Title)</a></p>
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <p class="text-right"><small data-bind="text: PublishDate">@(item.PublishDate == null ? "" : ((DateTime)item.PublishDate).ToString("yyyy-MM-dd"))</small></p>
+            </div>
+        </div>
+
+    }
+</div>
+<div class="text-center" style="clear:both;">
+    @Ajax.Pager(Model, new PagerOptions { PageIndexParameterName = "id", ContainerTagName = "ul", CssClass = "pagination", CurrentPagerItemTemplate = "<li class=\"active\"><a href=\"#\">{0}</a></li>", DisabledPagerItemTemplate = "<li class=\"disabled\"><a>{0}</a></li>", PagerItemTemplate = "<li>{0}</li>" }).AjaxOptions(a => a.SetUpdateTargetId("gongsixinwen"))
+</div>

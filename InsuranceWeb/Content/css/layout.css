@@ -1,0 +1,258 @@
+@charset "utf-8";
+
+.main {
+	width: 100%;
+	margin-top: 0px;
+	margin-right: auto;
+	margin-bottom: 0px;
+	margin-left: auto;
+}
+.header {
+	height: 90px;
+	width: 100%;
+	background-color: #000;
+	margin: 0px;
+	background-image: url(../img/bg_header.gif);
+	background-repeat: no-repeat;
+	background-position: 140px 80px;
+}
+
+.main_l {
+	float: left;
+	width: 140px;
+	position: relative;
+	z-index: 1;
+	margin-right: -100%;
+}
+.main_r {
+	float: left;
+	width: 100%;
+	z-index: 2;
+	background-image: url(../img/bg.gif);
+	background-repeat: repeat-y;
+}
+.box {
+	margin-left: 140px;
+	padding: 10px;
+}
+.menu_header {
+	font-size: 14px;
+	background-image: url(../img/bg_left.gif);
+	background-repeat: no-repeat;
+	background-position: 0px 38px;
+}
+.menu_list {
+	background-color: #000;
+}
+a.menu_header:link {
+	color: #000000;
+	text-decoration: none;
+	display: block;
+	background-color: #999999;
+	height: 40px;
+	line-height: 40px;
+	text-indent: 20px;
+}
+a.menu_header:visited {
+	color: #000000;
+	text-decoration: none;
+	display: block;
+	text-align: center;
+	height: 40px;
+	line-height: 40px;
+}
+
+a.menu_header:hover {
+	color: #000;
+	text-decoration: none;
+	background-color: #FFFFFF;
+}
+
+.menu_header_hover {
+	color: #000;
+	text-decoration: none;
+	background-color: #FFFFFF;
+	height: 38px;
+	display: block;
+	line-height: 40px;
+	text-indent: 20px;
+	margin-bottom: 2px;
+	font-size: 14px;
+}
+
+a.mydesk:link {
+	color: #000;
+	text-decoration: none;
+	background-color: #EEEEEE;
+	height: 38px;
+	display: block;
+	line-height: 40px;
+	text-indent: 20px;
+	margin-bottom: 2px;
+	font-size: 14px;
+}
+a.mydesk:visited {
+	color: #000;
+	text-decoration: none;
+	background-color: #EEEEEE;
+	height: 38px;
+	display: block;
+	line-height: 40px;
+	text-indent: 20px;
+	margin-bottom: 2px;
+	font-size: 14px;
+}
+a.mydesk:hover {
+	color: #000;
+	text-decoration: none;
+	background-color: #FFFFFF;
+	height: 38px;
+	display: block;
+	line-height: 40px;
+	text-indent: 20px;
+	margin-bottom: 2px;
+	font-size: 14px;
+}
+
+.logo  {
+	height: 90px;
+	width: 450px;
+	float: left;
+	/*background-image: url(../images/logo.jpg);*/
+	background-repeat: no-repeat;
+	background-position: 35px 15px;
+}
+.admin_info {
+	float: left;
+	margin-top: 40px;
+}
+.header-content {
+	float: left;
+	height: 90px;
+}
+
+.nav-list-hover {
+	color: #000000;
+	z-index: 1;
+	background-color: #eeeeee;
+}
+.dd-height {
+	height: 35px;
+}
+.dt-height {
+	height: 35px;
+	line-height: 28px;
+}
+
+.line{
+	height: 1px;
+	background-color: #ffffff;
+	border-top: 1px solid #d9d9d9;
+	margin-bottom: 5px;
+	margin-top: 5px;
+}
+
+.tips {
+	color: #FFF;
+	text-align: center;
+	padding-top: 15px;
+	margin-top: 0px;
+	margin-right: 10px;
+	margin-bottom: 10px;
+	margin-left: 0px;
+	float: left;
+}
+.tips-s {
+	color: #FFF;
+	margin-right: 10px;
+	float: left;
+}
+.tips-box-s {
+	color: #FFF;
+	height: 30px;
+	line-height: 30px;
+}
+.progress-box {
+	width: 600px;
+}
+.tips-100 {
+	height: 85px;
+	width: 100px;	
+}
+.tips-200 {
+	height: 85px;
+	width: 200px;
+}
+.tips-300 {
+	height: 85px;
+	width: 300px;
+}
+.tips-100s {
+	width: 100px;
+	height: 30px;
+	float: left;
+}
+.tips-200s {
+	width: 200px;
+	height: 30px;
+	float: left;
+}
+.tips-300s {
+	width: 300px;
+	height: 30px;
+	float: left;
+}
+.tips-600 {
+	height: 85px;
+	width: 600px;
+	line-height: 85px;
+	text-align: left;
+}
+.blue {
+	background-color: #21aae0;
+}
+.red {
+	background-color: #dc5207;
+}
+.green {
+	background-color: #0fb87f;
+}
+.tips_l{ float:left; line-height:30px; color:#fff; margin-left:8px;}
+.tips_r{
+	float: right;
+	line-height: 30px;
+	margin-right: 8px;
+	font-weight: bold;
+}
+a.link-white:link {
+	color: #FFF;
+	text-decoration: none;
+}
+a.link-white:visited {
+	color: #FFF;
+	text-decoration: none;
+}
+a.link-white:hover {
+	color: #FFF;
+	text-decoration: underline;
+}
+.notice10 {
+	width: 800px;
+	height: 230px;
+}
+.transButton {
+	background-color: transparent;
+	border-top-width: 1px;
+	border-right-width: 1px;
+	border-bottom-width: 1px;
+	border-left-width: 1px;
+	border-top-style: none;
+	border-right-style: none;
+	border-bottom-style: none;
+	border-left-style: none;
+	cursor: pointer;	
+}
+.ddButton
+{
+  margin-left:160px; 
+}

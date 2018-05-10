@@ -1,0 +1,366 @@
+﻿@model InsuranceModels.ProductInfo
+@using InsuranceWeb.Controllers
+@{
+    Layout = "~/Views/Share/_LayoutCommon.cshtml";
+    ViewBag.active2 = "active";
+    List<InsuranceModels.News> newsList = ViewData["NewsList"] as List<InsuranceModels.News>;
+}
+<style type="text/css">
+    .code {
+        background-image: url(code.jpg);
+        font-family: Arial;
+        font-style: italic;
+        color: Red;
+        border: 0;
+        padding: 2px 3px;
+        letter-spacing: 3px;
+        font-weight: bolder;
+    }
+
+    .unchanged {
+        border: 0;
+    }
+
+    textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
+        background-color: #ffffff;
+        border: 1px solid #cccccc;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+        -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+        -webkit-transition: border linear 0.2s, box-shadow linear 0.2s;
+        -moz-transition: border linear 0.2s, box-shadow linear 0.2s;
+        -o-transition: border linear 0.2s, box-shadow linear 0.2s;
+        transition: border linear 0.2s, box-shadow linear 0.2s;
+    }
+    .ewmbuy {
+        position: relative;
+    }
+
+    a.ewmbuy:hover .showewm {
+        display: block;
+    }
+
+    .showewm {
+        z-index: 999;
+        display: none;
+        border: 1px solid #f0ad4e;
+        position: absolute;
+        top: 40px;
+        right: -67px;
+        height: 220px;
+        width: 200px;
+        padding: 10px;
+        text-align: center;
+        background: #fff;
+        border-radius: 4px;
+        color: #999;
+    }
+
+    .myimg {
+        padding: 10px;
+        position: relative;
+    }
+
+        .myimg img {
+            width: 160px;
+            height: 160px;
+            background: #f90;
+            display: block;
+        }
+
+        .myimg span {
+            position: absolute;
+            top: -38px;
+            left: 83px;
+            color: #f0ad4e;
+            background: #fff;
+            width: 10px;
+            text-align: center;
+            height: 14px;
+            line-height: 10px;
+            display: block;
+        }
+
+</style>
+<script type="text/javascript">
+    function changeCheckCode() {
+        $("#code").attr("src", $("#code").attr("src") + "&r=" + Math.random());
+    }
+    function CheckRequire(obj) {
+        if ($.trim(obj.value) == "") {
+
+            $(obj).nextAll("span.error").text("该项不能为空");
+        } else {
+            $(obj).nextAll("span.error").text("");
+            return true;
+
+        }
+
+        return false;
+    }
+    function CheckNo(obj) {
+        if ($.trim(obj.value) == "") {
+            $(obj).nextAll("span.error").text("");
+            return true;
+        }
+        else {
+            var reg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
+            if (reg.test(obj.value)) {
+                $(obj).nextAll("span.error").text("");
+                return true;
+            } else {
+                $(obj).nextAll("span.error").text("请输入正确的身份证");
+            }
+
+        }
+
+        return false;
+    }
+    function CheckPhone(obj) {
+        if ($.trim(obj.value) == "") {
+
+            $(obj).nextAll("span.error").text("该项不能为空");
+        }
+        else {
+            var reg = /^1[0-9]{10}$/;
+            if (reg.test(obj.value)) {
+                $(obj).nextAll("span.error").text("");
+                return true;
+            } else {
+                $(obj).nextAll("span.error").text("请输入正确的手机号");
+            }
+
+        }
+
+        return false;
+    }
+    function CheckEmail(obj) {
+
+
+        if ($.trim(obj.value) == "") {
+
+            $(obj).nextAll("span.error").text("该项不能为空");
+        }
+        else {
+            var reg = /^[a-zA-Z0-9_.-]+@@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/;
+            if (reg.test(obj.value)) {
+
+                $(obj).nextAll("span.error").text("");
+                return true;
+            } else {
+                $(obj).nextAll("span.error").text("请输入正确的邮箱");
+            }
+
+        }
+        return false;
+    }
+
+    function Submit()
+    {
+        changeCheckCode();
+        if (CheckRequire(document.getElementById("tbName")) && CheckNo(document.getElementById("tbId")) && CheckPhone(document.getElementById("tbIphone")) && CheckEmail(document.getElementById("tbEmail")) && CheckRequire(document.getElementById("tbCity")) && CheckRequire(document.getElementById("CodeNo")))
+        {
+
+            var data = { "name": $("#tbName").val(), "relation": $("[name='bbr']").val(), "sex": $("[name='sex']").val(), "No": $("#tbId").val(), "phone": $("#tbIphone").val(), "email": $("#tbEmail").val(), "city": $("#tbCity").val(), "codeNo": $("#CodeNo").val(), "carNo": $("#tbCarNo").val(), "productCode": $("#ProductCode").val() };
+
+            $.ajax({
+                url: "/TourismInsurance/SubmitData", async: false, data: data, type: "POST", success: function (data) {
+
+                    if (data.state==100) {
+                        $(document.getElementById("CodeNo")).nextAll("span.error").text("请输入正确的验证码");
+                    } else if (data.state == 101) {
+                        $('#GM').modal('hide');
+                        $("#CG").modal('show');
+                    } else {
+                        alert(data.msg);
+                    }
+
+                }
+            });
+
+        }
+    }
+</script>
+<div class="container" style="margin:40px auto;">
+    <p class="zi22"><strong id="title"></strong></p>
+    <div class="row">
+        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+            <div style="border:1px solid #ffff94;padding:15px; padding-right:50px; padding-bottom:20px;" data-bind="with: details">
+                <p class="zi20"><strong data-bind="text: ProductName">@(Model == null ? "" : Model.ProductName) </strong></p>
+                <div class="row mt20">
+                    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                        <img class="img-responsive" style="height:200px;width:300px;" src="@ViewBag.Http/@(Model == null ? "" : Model.ImgUrlDetail)" title="@(Model == null ? "" : Model.ProductName)" />
+                    </div>
+                    <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                        <p><strong>产品特色：</strong><span> @(Model == null ? "" : Model.ProductFeature)</span></p>
+                        <p style="margin-top:17px;"><strong>适用人群：</strong><span> @(Model == null ? "" : Model.SuitableCrowd)</span></p>
+                        <p style="margin-top:17px;"><strong>适用年龄：</strong><span> @(Model == null ? "" : Model.SuitableAge)</span></p>
+                        <p style="margin-top:17px;"><strong>保险期限：</strong><span> @(Model == null ? "" : Model.InsuranceTime)</span></p>
+                        <p style="margin-top:17px;"><strong>最高保额：</strong><span> @(Model == null ? "" : Model.InsuranceMoney)</span></p>
+                        @{
+                            if (Model != null && Model.IsPurchase)
+                            {
+                                @*<a href="" class="gm btn btn-warning btn-sm mt20 pull-right" data-toggle="modal" data-target="#GM">立即购买</a>*@
+                                <a href="" class="ewmbuy gm btn btn-warning btn-sm mt20 pull-right" data-toggle="modal" >
+									立即购买
+									<div class="showewm">
+										<p style="text-align:center">打开微信扫一扫购买</p>
+										<div class="myimg">
+											<span>Λ</span>
+											<img src="@ViewBag.Http/@(Model == null ? "" : Model.ImgUrlCode)" alt="微信二维码" />
+										</div>
+									</div>
+								</a>
+                            }
+                            else
+                            {
+                                <a href="" class="gm btn btn-warning btn-sm mt20 pull-right disabled" data-toggle="modal" data-target="#GM">暂不购买</a>
+                            }
+                        }
+
+                    </div>
+                </div>
+            </div>
+            <div class="mt15">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#ProductExplain" data-toggle="tab">产品说明</a></li>
+                    <li><a href="#InsuranceInfo" data-toggle="tab">投保须知</a></li>
+                    <li><a href="#InsuranceCase" data-toggle="tab">保险案例</a></li>
+                    <li><a href="#PaymentService" data-toggle="tab">理赔服务</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div id="ProductExplain" class="tab-pane fade in active">@Html.Raw(Model == null ? "" : Model.ProductExplain.GetReplaceImgSrcContent())</div>
+                    <div id="InsuranceInfo" class="tab-pane fade">@Html.Raw(Model == null ? "" : Model.InsuranceInfo.GetReplaceImgSrcContent())</div>
+                    <div id="InsuranceCase" class="tab-pane fade">@Html.Raw(Model == null ? "" : Model.InsuranceCase.GetReplaceImgSrcContent())</div>
+                    <div id="PaymentService" class="tab-pane fade">@Html.Raw(Model == null ? "" : Model.PaymentService.GetReplaceImgSrcContent())</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 mt30">
+            <p class="zi18"><strong>最近公告</strong><span class="pull-right zi16"><a href="/NewsList/Index?Type=GG">更多...</a></span></p>
+            <ul data-bind="foreach: notice">
+                @foreach (var item in newsList)
+                {
+                    <li class="mt10"><a data-bind="text: Title" href="/NewsList/news_details?GG=@item.ID">@(item.Title.Length > 20 ? item.Title.Substring(0, 20) + "..." : item.Title)</a></li>
+                }
+
+            </ul>
+            <img src="/Content/images/right_01.jpg" class="img-responsive center-block mt20" id="guanggao">
+        </div>
+    </div>
+</div>
+
+<!--填写信息弹框-->
+<div class="modal fade" id="GM" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" data-keyboard="false" data-bind="with: details">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-top:-10px;"><span aria-hidden="true">&times;</span></button>
+                <strong class="modal-title zi18" data-bind="text: ProductName"></strong>
+            </div>
+            <div class="modal-body row">
+                <h5 class="ml10">1、请仔细填写您的真实信息，我们将安排专人与您取得联系！</h5>
+                <input  type="hidden" id="ProductCode" value="@(Model == null ? "" : Model.ProductCode)"/>
+                @*<hr style="margin-bottom:0px;">
+                    <div class="col-xs-5" style="text-align:right;padding:0px;">
+                        <p class="mt15"><small class="zi14">与被保人关系：</small></p>
+                        <p class="mt15"><small class="zi14">投保人姓名：</small></p>
+                        <p class="mt15"><small class="zi14">性别：</small></p>
+                        <p class="mt15"><small class="zi14">身份证号码：</small></p>
+                        <p class="mt20"><small class="zi14">手机号：</small></p>
+                        <p class="mt20"><small class="zi14">邮箱：</small></p>
+                        <p class="mt20"><small class="zi14">所在城市：</small></p>
+                        <p class="mt20"><small class="zi14">验证码：</small></p>
+                    </div>*@
+                <div class="col-xs-12" style="padding:0px;margin-left:120px;">
+                    <div class="mt15">
+                        <label style="width:100px;text-align:right">与被保人关系：</label>
+                        <label class="radio-inline">
+                            <input type="radio" name="bbr" value="0" checked="checked"> 本人
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="bbr" value="1"> 父母
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="bbr" value="2"> 配偶
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="bbr" value="3"> 子女
+                        </label>
+                    </div>
+                    <div class="mt15">
+                        <label style="width:100px;text-align:right">投保人姓名：</label>
+                        <input id="tbName" type="text" name="tbName" class="input-sm" onfocus="CheckRequire(this)" onblur="CheckRequire(this)">
+                        <span style="color:red;">*</span>
+                        <span style="color:red;" class="error"></span>
+                    </div>
+                    <div class="mt15">
+                        <label style="width:100px;text-align:right">车牌号：</label>
+                        <input id="tbCarNo" type="text" name="tbCarNo" class="input-sm" style="width:220px;">
+                        <span style="color:red;">*车险必填</span>
+                    </div>
+                    <div class="mt10">
+                        <label style="width:100px;text-align:right">性别：</label>
+                        <label class="radio-inline">
+                            <input type="radio" name="sex" value="0" checked="checked"> 男
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="sex" value="1"> 女
+                        </label>
+                    </div>
+                    <div class="mt15">
+                        <label style="width:100px;text-align:right">身份证号码：</label>
+                        <input id="tbId" type="text" name="tbId" class="input-sm" style="width:220px;" onfocus="CheckNo(this)" onblur="CheckNo(this)" />
+                        <span style="color:red;" class="error"></span>
+                    </div>
+                    <div class="mt15">
+                        <label style="width:100px;text-align:right">手机号：</label>
+                        <input id="tbIphone" type="text" name="tbIphone" class="input-sm" style="width:200px;" onfocus="CheckPhone(this)" onblur="CheckPhone(this)" />
+                        <span style="color:red;">*</span>
+                        <span style="color:red;" class="error"></span>
+                    </div>
+                    <div class="mt15">
+                        <label style="width:100px;text-align:right">邮箱：</label>
+                        <input id="tbEmail" type="text" name="tbEmail" class="input-sm" style="width:200px;" onfocus="CheckEmail(this)" onblur="CheckEmail(this)" />
+                        <span style="color:red;">*</span>
+                        <span style="color:red;" class="error"></span>
+                    </div>
+                    <div class="mt15">
+                        <label style="width:100px;text-align:right">所在城市：</label>
+                        <input id="tbCity" type="text" name="tbCity" class="input-sm" style="width:120px;" maxlength="50" onfocus="CheckRequire(this)" onblur="CheckRequire(this)" />
+                        <span style="color:red;">*</span>
+                        <span style="color:red;" class="error"></span>
+                    </div>
+                    <div class="mt15">
+                        <label style="width:100px;text-align:right">验证码：</label>
+                        <input type="text" id="CodeNo" class="input-sm" style="width:100px;" onfocus="CheckRequire(this)" onblur="CheckRequire(this)" />
+                        <span style="color:red;">*</span>
+                        <img id="code" src="/TourismInsurance/CreateValidateGraphic?length=5" onclick="changeCheckCode()" />
+                        <span style="color:red;" class="error"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" style="text-align:center;">
+                <button type="button" class="btn btn-success" style="width:30%" onclick="Submit()">提交申请</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--提交成功弹框-->
+<div class="modal fade" id="CG" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" data-keyboard="false" data-bind="with: details">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title"><span class="glyphicon glyphicon-ok"></span> 您已成功提交申请</h4>
+            </div>
+            <div class="modal-body">
+                <p>我们已经收到您的投保申请，平台客服会在审核后，与您取得联系。</p>
+                <p>感谢您关注森昊保险代理平台！</p>
+            </div>
+            <div class="modal-footer" style="text-align:center;">
+                <a href="/Home/index" class="btn btn-default" style="width:30%">返回平台首页</a>
+            </div>
+        </div>
+    </div>
+</div>

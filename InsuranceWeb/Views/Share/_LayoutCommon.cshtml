@@ -1,0 +1,105 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <!--<meta charset="utf-8">-->
+    <meta charset="gb2312">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    <title>森昊保险代理</title>
+    <link rel="shortcut icon" href="~/Content/images/logo.ico" />
+    <link rel="stylesheet" type="text/css" href="~/Content/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/css/common.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/css/header.css">
+    <script src="~/Content/js/jquery.min.js"></script>
+    <script src="~/Content/js/bootstrap.min.js"></script>
+    <script src="~/Content/js/knockout-3.4.0.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <!--<script src="~/Content/js/Config.js"></script>-->
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script>
+
+        $(function () {
+            //if ($("li.li_1").hasClass("active")) {
+            //    $(".sanjiao").css("border-bottom-color", "#cd1023");
+            //} else {
+            //    $(".sanjiao").css("border-bottom-color", "#364854");
+            //}
+            $(".li_1").hover(function () {
+                $(".sanjiao").css("border-bottom-color", "#cd1023");
+            }, function () {
+                if (!$("li.li_1").hasClass("active")) {
+                    $(".sanjiao").css("border-bottom-color", "#364854");
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <!--通用头部-->
+    <header>
+        <div class="w1170 head">
+            <div class="logo"><a href="/Home/Index"><img src="~/Content/images/bd_index_logo.jpg"></a></div>
+            <div class="nav">
+                <div class="tel"><img src="~/Content/images/tel.png"></div>
+                <ul class="nava">
+                    <li class="li_1 @ViewBag.active1"><span class="sanjiao" style='border-bottom-color:@(ViewBag.active1 =="active"?"#cd1023":"#364854") ' ></span><a href="~/home/index">首页</a></li>
+                    <li class="@ViewBag.active2"><a href="~/tourismInsurance/index">保险产品</a></li>
+                    <li class="@ViewBag.active3"><a href="~/talentRecruitment/index">人才招聘</a></li>
+                    <li class="@ViewBag.active4"><a href="~/aboutus/index">关于我们</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    @RenderBody()
+    <!--通用底部-->
+    <footer>
+        <div class="foot_top">
+            <div class="w1170">
+                <p>合 作 机 构</p>
+                <ul>
+                    <li><img src="~/Content/images/lj_1.jpg" /></li>
+                    <li><img src="~/Content/images/lj_2.jpg" /></li>
+                    <li><img src="~/Content/images/lj_3.jpg" /></li>
+                    <li><img src="~/Content/images/lj_4.jpg" /></li>
+                    <li><img src="~/Content/images/lj_5.jpg" /></li>
+                    <li><img src="~/Content/images/lj_6.jpg" /></li>
+                    <li><img src="~/Content/images/lj_7.jpg" /></li>
+                    <li><img src="~/Content/images/lj_8.jpg" /></li>
+                    <li><img src="~/Content/images/lj_9.jpg" /></li>
+                    <li><img src="~/Content/images/lj_10.jpg" /></li>
+                    <li><img src="~/Content/images/lj_11.jpg" /></li>
+                    <li><img src="~/Content/images/lj_12.jpg" /></li>
+                    <li><img src="~/Content/images/lj_13.jpg" /></li>
+                    <li><img src="~/Content/images/lj_14.jpg" /></li>
+                    <li><img src="~/Content/images/lj_15.jpg" /></li>
+                    <li><img src="~/Content/images/lj_16.jpg" /></li>
+                    <li><img src="~/Content/images/lj_17.jpg" /></li>
+                    <li><img src="~/Content/images/lj_18.jpg" /></li>
+                    <li><img src="~/Content/images/lj_19.jpg" /></li>
+                </ul>
+            </div>
+        </div>
+        <div class="foot_bottom">
+            <div class="w1170">
+                <div class="btop">
+                    <ul>
+                        <li><a href="~/aboutus/index">关于我们</a></li>
+                        <li><a href="~/helpList/index">常见问题</a></li>
+                        <li style="border-right:0"><a href="~/talentRecruitment/index">联系我们</a></li>
+                    </ul>
+                    <div class="ewm text-center">
+                        <img src="~/Content/images/erweima.jpg" class="img-responsive" />
+                        <p>熊猫保险服务</p>
+                    </div>
+                </div>
+                <div class="text-center cor_f">Copyright © 上海森昊保险代理有限公司 版权所有 <a href="Http://www.miitbeian.gov.cn" class="cor_f">沪ICP备：16005694号</a></div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

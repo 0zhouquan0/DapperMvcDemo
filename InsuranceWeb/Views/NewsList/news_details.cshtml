@@ -1,0 +1,135 @@
+﻿@using InsuranceModels
+@using InsuranceWeb.Controllers
+@model Dictionary<string, News>
+@{
+    Layout = "~/Views/Share/_LayoutCommon.cshtml";
+    //ViewBag.active4 = "active";
+}
+<style>
+    @@media(max-width: 992px) {
+        #canvas {
+            width: 100% !important;
+        }
+    }
+
+    @@media(max-width: 768px) {
+        .row-offcanvas {
+            position: relative;
+            -webkit-transition: all .25s ease-out;
+            -o-transition: all .25s ease-out;
+            transition: all .25s ease-out;
+        }
+
+        .row-offcanvas-right {
+            right: 0;
+        }
+
+            .row-offcanvas-right .sidebar-offcanvas {
+                right: -50%; /* 6 columns */
+            }
+
+            .row-offcanvas-right.active {
+                right: 50%; /* 6 columns */
+            }
+
+        .sidebar-offcanvas {
+            position: absolute;
+            top: 0;
+            width: 50%; /* 6 columns */
+        }
+
+        #canvas {
+            margin-top: 10px !important;
+        }
+
+        #guanggao {
+            display: none;
+        }
+    }
+
+    p {
+        text-indent: 2em;
+        margin-bottom: 0px;
+        font-size: 15px;
+    }
+
+    html, body {
+        overflow-x: hidden;
+    }
+
+    button {
+        outline: none !important;
+    }
+
+    #btn {
+        background: #2e88bc;
+        border-color: #2e88bc;
+    }
+
+    #canvas {
+        margin-top: 20px;
+    }
+
+    #guanggao {
+        width: 260px;
+    }
+
+    .list-group-item.active,
+    .list-group-item.active:focus,
+    .list-group-item.active:hover {
+        background: #2e88bc;
+        border-color: #2e88bc;
+    }
+</style>
+
+<img src="~/Content/images/xwlb.jpg" class="img-responsive center-block" style="width:100%;">
+<!--主体内容-->
+<div class="container" id="canvas">
+    <div class="row row-offcanvas row-offcanvas-right">
+        <div class="col-md-3 col-sm-3 sidebar-offcanvas">
+            <div class="list-group" style="text-align: center;">
+                <a href="/NewsList/Index?Type=GX" class="list-group-item @(ViewBag.Type == "GX" ? "active" : "")" id="GX">公司新闻</a>
+                <a href="/NewsList/Index?Type=HZ" class="list-group-item @(ViewBag.Type == "HZ" ? "active" : "")" id="HZ">行业资讯</a>
+                <a href="/NewsList/Index?Type=GG" class="list-group-item @(ViewBag.Type == "GG" ? "active" : "")" id="GG">平台公告</a>
+            </div>
+            <img src="~/Content/images/right_01.jpg" class="img-responsive center-block" id="guanggao">
+        </div>
+        <div class="col-md-9 col-sm-9 col-xs-12 dd">
+            <p class="pull-right visible-xs">
+                <button type="button" id="btn" class="btn btn-primary btn-xs" data-toggle="canvas">导航</button>
+            </p>
+            <!--内容展示-->
+            <div id="gongsixinwen" data-bind="with: details">
+                <h3 style="margin-top: 0px;"><strong id="title">@ViewBag.TypeName</strong></h3>
+                <hr>
+                <p style="text-align:center; font-size:18px;"><strong>@Model["News"].Title</strong></p>
+                <p data-bind="text: PublishDate" style="text-align:center; margin-top:5px;">@(Model["News"].PublishDate == null ? "" : ((DateTime)Model["News"].PublishDate).ToString("yyyy-MM-dd"))</p>
+                <div style="margin-top:10px;">@Html.Raw(Model["News"].Contents.GetReplaceImgSrcContent())</div>
+                <div>
+                    <ul class="pager" style="margin-bottom:0px;">
+                        @{
+                            if (Model["PreNews"].ID == 0)
+                            {
+                                <li class="previous disabled"><a>没有了！</a></li>
+                            }
+                            else
+                            {
+                                <li class="previous"><a href="/NewsList/news_details?@ViewBag.Type=@Model["PreNews"].ID">上一篇：@(Model["PreNews"].Title.Length > 20 ? Model["PreNews"].Title.Substring(0, 20) + "..." : Model["PreNews"].Title)</a></li>
+                            }
+                            if (Model["NextNews"].ID == 0)
+                            {
+                                <li class="next disabled"><a>没有了！</a></li>
+                            }
+                            else
+                            {
+                                <li class="next"><a href="/NewsList/news_details?@ViewBag.Type=@Model["NextNews"].ID">下一篇：@(Model["NextNews"].Title.Length > 20 ? Model["NextNews"].Title.Substring(0, 20) + "..." : Model["NextNews"].Title)</a></li>
+                               
+                            }
+
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,209 @@
+﻿@using InsuranceModels;
+@{
+    Layout = "~/Views/Share/_LayoutCommon.cshtml";
+    ViewBag.active1 = "active";
+    IEnumerable<ImgAdv> listImgAdv = ViewData["listImgAdv"] as List<ImgAdv>;
+    Dictionary<string, IEnumerable<News>> listNews = ViewData["listNews"] as Dictionary<string, IEnumerable<News>>;
+    IEnumerable<ProductInfo> listProduct = ViewData["listProduct"] as List<ProductInfo>;
+}
+
+<style type="text/css">
+@@media (max-width: 768px) {
+    .carousel-indicators .active, .carousel-indicators li {
+        width: 10px !important;
+        height: 10px !important;
+    }
+
+    .carousel-indicators {
+        bottom: 0px !important;
+    }
+
+    header {
+        margin-bottom: 20px;
+    }
+}
+.carousel-indicators {
+    bottom: 0px;
+}
+.carousel-indicators .active, .carousel-indicators li {
+    width: 20px;
+    height: 20px;
+    border-radius: 50px;
+}
+.main_info {
+    clear: both;
+}
+.myul {
+    width: 100%;
+    height: 360px;
+    margin-bottom: 40px;
+	clear:both;
+}
+.myul .myli {
+    width: 269px;
+    height: 360px;
+    margin-right: 31.3px;
+    border: 1px solid #D8E0E7;
+    box-sizing: border-box;
+    float: left;
+	overflow:hidden;
+}
+.myul .myli img {
+	width:267px;
+	height:200px;
+	overflow:hidden;
+}
+.myul .myli p {
+    margin-bottom: 10px;
+}
+.myul .myli:last-child {
+	margin-right:0;
+}
+.sikuai {
+    height: 300px;
+    background: #f0f4f7;
+    width: 100%;
+    margin: 0 auto;
+    line-height: 300px;
+}
+.sikuai li {
+    float: left;
+    margin-right: 30px;
+}
+.news {
+    clear: both;
+    height: 300px;
+}
+.newskuai {
+    position: relative;
+}
+.kuai {
+    float: left;
+    margin-right: 1px;
+}
+.kuai ul {
+	padding: 20px;
+}
+.kuai ul li {
+    line-height: 40px;
+    border-bottom: 1px dashed #bbb;
+}
+.kuai ul li:nth-child(3),.kuai ul li:last-child  {
+    border-bottom: 0px;
+}
+.myli a:hover, .kuai ul a:hover {
+    color: #f54343;
+    text-decoration: underline;
+}
+a.more {
+    text-align: right;
+    width: 100%;
+    display: block;
+}
+.xian1, .xian2 {
+    position: absolute;
+    top: 60px;
+    left: 389px;
+    height: 150px;
+    width: 1px;
+    border-right: 1px solid #bbb;
+}
+.xian2 {
+    left: 779px;
+}
+.neirong {
+	min-height:40px;
+	max-height:75px; 
+	overflow:hidden;
+	width:247px;
+}
+</style>
+
+<!--轮播图-->
+<div id="carousel-example-generic" class="carousel slide" data-ride="carousel" >
+    <ol class="carousel-indicators">
+        @for (int i = 0; i < listImgAdv.Count(); i++)
+        {
+            <li data-target="#carousel-example-generic" data-slide-to="@i" class="@(i==0?"active":"")"></li>
+        }
+    </ol>
+    <div class="carousel-inner" role="listbox" id="banner">
+        @for (int i = 0; i < listImgAdv.Count(); i++)
+        {
+            <div class="item @(i==0?"active":"")">
+                <a href="@listImgAdv.ElementAt(i).Url" style="margin:0px;padding:0px;"><img class="w100" src="@ViewBag.Http/@listImgAdv.ElementAt(i).ImgUrl"></a>
+                <div class="carousel-caption"></div>
+            </div>
+        }
+    </div>
+    <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+    </a>
+    <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+    </a>
+</div>
+<!--主体内容-->
+<div class="w1170 main_info">
+    <div class="text-center" style="margin:50px 0;"><img src="~/Content/images/i-main.png"></div>
+    <div class="myul">
+
+        @foreach (var item in listProduct)
+        {
+            <div class="myli">
+                <img class="img-responsive" src="@ViewBag.Http/@item.ImgUrlList">
+                <div style="padding:10px;">
+                    <p class="ft_20 fw">@item.ProductName</p>
+                    <p class="neirong">@(item.ProductFeature.Length > 30 ? item.ProductFeature.Substring(0, 30) + "…" : item.ProductFeature)</p>
+                    <a href="/TourismInsurance/tourism_details?ProductType=@item.ProductCode" class="xq">了解详情 ></a>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<div class="sikuai">
+    <ul class="w1170">
+        <li><img src="~/Content/images/i_8.jpg"></li>
+        <li><img src="~/Content/images/i_6.jpg"></li>
+        <li><img src="~/Content/images/i_7.jpg"></li>
+        <li style="margin-right:0;"><img src="~/Content/images/i_5.jpg"></li>
+    </ul>
+</div>
+<div class="w1170 news">
+    <p style="font-size:36px; margin:60px 0 15px;">新 闻 资 讯</p>
+    <div class="newskuai">
+        <div class="kuai">
+            <img src="~/Content/images/i_9.jpg" />
+            <ul>
+                @foreach (var item in listNews["GG"])
+                {
+                    <li><a href="/NewsList/news_details?GG=@item.ID">@(item.Title.Length > 20 ? item.Title.Substring(0, 20) + "…" : item.Title)</a></li>
+                }
+                <a href="/NewsList/Index?Type=GG" class="more">查看更多</a>
+            </ul>
+        </div>
+        <div class="kuai">
+            <img src="~/Content/images/i_10.jpg" />
+            <ul>
+                @foreach (var item in listNews["HZ"])
+                {
+                    <li><a href="/NewsList/news_details?HZ=@item.ID">@(item.Title.Length > 20 ? item.Title.Substring(0, 20) + "…" : item.Title)</a></li>
+                }
+                <a href="/NewsList/Index?Type=HZ" class="more">查看更多</a>
+            </ul>
+        </div>
+        <div class="kuai" style="margin-right:0;">
+            <img src="~/Content/images/i_11.jpg" />
+            <ul>
+                @foreach (var item in listNews["GX"])
+                {
+                    <li><a href="/NewsList/news_details?GX=@item.ID">@(item.Title.Length > 20 ? item.Title.Substring(0, 20) + "…" : item.Title)</a></li>
+                }
+                <a href="/NewsList/Index?Type=GX" class="more">查看更多</a>
+            </ul>
+        </div>
+        <div class="xian1"></div>
+        <div class="xian2"></div>
+    </div>
+</div>
+

@@ -1,0 +1,74 @@
+﻿@using Webdiyer.WebControls.Mvc;
+@using InsuranceModels;
+@using InsuranceWeb.Controllers
+@model PagedList<ProductInfo>
+@{
+    Layout = "~/Views/Share/_LayoutCommon.cshtml";
+    ViewBag.active2 = "active";
+}
+
+<style>
+    .kuai {
+        float: left;
+        margin-bottom: 38px;
+    }
+
+        .kuai:nth-child(2n-1) {
+            margin-right: 38px;
+        }
+
+        .kuai img {
+            width: 216px;
+            height: 200px;
+            overflow: hidden;
+        }
+
+    .img_right {
+        border: 1px solid #D8E0E7;
+        width: 340px;
+        height: 320px;
+        padding: 10px;
+        float: left;
+        margin-left: 10px;
+    }
+
+        .img_right h4, .img_right p {
+            margin-bottom: 10px;
+        }
+
+    .fw {
+        white-space: nowrap;
+        -webkit-text-overflow: ellipsis;
+        -moz-text-overflow: ellipsis;
+        -o-text-overflow: ellipsis;
+        -ms-text-overflow: ellipsis;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+</style>
+<div class="w1170">
+    <div class="text-center" style="margin:50px 0;"><img src="~/Content/images/p_1.png"></div>
+    <ul>
+
+        @foreach (var item in Model)
+        {
+            <li class="kuai">
+                <img src="@ViewBag.Http/@item.ImgUrlList" class="img-responsive fl" title="@item.ProductName" alt="@item.ProductName">
+                <div class="img_right">
+                    <h4 class="fw">@item.ProductName</h4>
+                    <div style="height:220px; overflow:hidden">@Html.Raw(item.ProductDesc.GetReplaceImgSrcContent())</div>
+                    <div style="clear:both; text-align:right;">
+                        <a href="/TourismInsurance/tourism_details?ProductType=@item.ProductCode" class="xq btn btn-info mt15">查看详情</a>
+                        <a href="/TourismInsurance/tourism_details?ProductType=@item.ProductCode" class="gm btn btn-warning mt15">立即购买</a>
+                    </div>
+                </div>
+            </li>
+        }
+
+    </ul>
+    <div class="text-center" style="clear:both;">
+        @Ajax.Pager(Model, new PagerOptions { PageIndexParameterName = "id", ContainerTagName = "ul", CssClass = "pagination", CurrentPagerItemTemplate = "<li class=\"active\"><a href=\"#\">{0}</a></li>", DisabledPagerItemTemplate = "<li class=\"disabled\"><a>{0}</a></li>", PagerItemTemplate = "<li>{0}</li>" }).AjaxOptions(a => a.SetUpdateTargetId("w1170"))
+    </div>
+
+</div>
+@{Html.RegisterMvcPagerScriptResource();}

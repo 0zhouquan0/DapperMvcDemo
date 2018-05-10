@@ -1,0 +1,41 @@
+@media (max-width: 768px) {
+	.carousel-indicators .active,.carousel-indicators li{
+		width: 10px !important;
+		height: 10px !important;
+	}
+	.carousel-indicators{
+		bottom: -10px !important;
+	}
+	header{margin-bottom: 20px;}
+}
+.carousel-indicators{
+	bottom: 0px;
+}
+.carousel-indicators .active,.carousel-indicators li{
+	width: 20px;
+	height: 20px;
+	border-radius: 100px;
+	
+}
+.nr_banner.carousel-indicators.active,
+.nr_banner.carousel-indicators li{
+		width: 10px !important;
+		height: 10px !important;
+		margin-top: 70%;
+}
+.panel-default{
+	border:none;
+}
+.nr_banner{
+	margin-left: 45%;top: 30%;width: 15px;
+}
+.nr_banner li{
+	display: block !important;
+}
+.xbk{
+	padding-top: 10px;
+	padding-bottom: 10px;
+	border-left: 1px solid #e5e5e5;margin: 0px;
+	border-bottom: 1px solid #e5e5e5;margin: 0px;
+	border-right: 1px solid #e5e5e5;margin: 0px;
+}
